@@ -1,5 +1,6 @@
 #include "allocate.h"
 #include "backtrack.h"
+#include "decide.h"
 #include "error.h"
 #include "import.h"
 #include "inline.h"
@@ -518,4 +519,24 @@ int kissat_value (kissat *solver, int elit) {
   if (elit < 0)
     tmp = -tmp;
   return tmp < 0 ? -elit : elit;
+}
+
+void kissat_init_phase (kissat *solver, double *logic1_prob_all,
+                        unsigned size) {
+  kissat_require_initialized (solver);
+  if (GET_OPTION (circuit_guide)) {
+    // printf ("vars = %u, size = %u, circuit = %p\n", VARS, size,
+    //         solver->phases.circuit);
+    assert (solver->phases.circuit != NULL);
+    value *inital_phase = solver->phases.circuit;
+    for (all_phases (circuit, p))
+      *p = INITIAL_PHASE;
+    // assert (size == VARS);
+    for (size_t i = 0; i < size; i++) {
+      if (logic1_prob_all[i] < 0.5)
+        inital_phase[i] = (value) -1;
+      else if (logic1_prob_all[i] > 0.5)
+        inital_phase[i] = (value) 1;
+    }
+  }
 }

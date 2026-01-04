@@ -41,4 +41,7 @@ void kissat_set_decision_limit (kissat *solver, unsigned);
 
 void kissat_print_statistics (kissat *solver);
 
+void kissat_init_phase (kissat *solver, double *logic1_prob_all,
+                        unsigned size);
+
 #endif

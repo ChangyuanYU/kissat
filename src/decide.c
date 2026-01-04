@@ -173,6 +173,14 @@ int kissat_decide_phase (kissat *solver, unsigned idx) {
   else
     saved = 0;
 
+  value *circuit;
+  if (force)
+    circuit = 0;
+  else if (GET_OPTION (circuit_guide))
+    circuit = solver->phases.circuit + idx;
+  else
+    circuit = 0;
+
   value res = 0;
 
   if (!solver->stable) {
@@ -195,6 +203,9 @@ int kissat_decide_phase (kissat *solver, unsigned idx) {
     LOG ("%s uses saved decision phase %d", LOGVAR (idx), (int) res);
     INC (saved_decisions);
   }
+
+  if (!res && circuit && (res = *circuit))
+    LOG ("%s uses circuit decision phase %d", LOGVAR (idx), (int) res);
 
   if (!res) {
     res = INITIAL_PHASE;

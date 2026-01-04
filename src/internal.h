@@ -292,4 +292,5 @@ static inline unsigned kissat_assigned (kissat *solver) {
 
 void kissat_reset_last_learned (kissat *solver);
 
+#define INITIAL_PHASE (GET_OPTION (phase) ? 1 : -1)
 #endif

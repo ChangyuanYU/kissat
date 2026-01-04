@@ -20,6 +20,7 @@
   DBGOPT (check, 2, 0, 2, "check model (1) and derived clauses (2)") \
   OPTION (chrono, 1, 0, 1, "allow chronological backtracking") \
   OPTION (chronolevels, 100, 0, INT_MAX, "maximum jumped over levels") \
+  OPTION (circuit_guide, 1, 0, 1, "use circuit simulation result to guide phases") \
   OPTION (compact, 1, 0, 1, "enable compacting garbage collection") \
   OPTION (compactlim, 10, 0, 100, "compact inactive limit (in percent)") \
   OPTION (congruence, 1, 0, 1, "congruence closure on extracted gates") \

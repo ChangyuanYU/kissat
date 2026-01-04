@@ -108,6 +108,8 @@ static void compact_literal (kissat *solver, unsigned dst_lit,
   solver->phases.best[dst_idx] = solver->phases.best[src_idx];
   solver->phases.saved[dst_idx] = solver->phases.saved[src_idx];
   solver->phases.target[dst_idx] = solver->phases.target[src_idx];
+  if (GET_OPTION (circuit_guide))
+    solver->phases.circuit[dst_idx] = solver->phases.circuit[src_idx];
 
   const unsigned not_src_lit = NOT (src_lit);
   const unsigned not_dst_lit = NOT (dst_lit);

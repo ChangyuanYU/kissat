@@ -24,6 +24,7 @@ void kissat_increase_phases (kissat *solver, unsigned new_size) {
   increase_phases (best);
   increase_phases (saved);
   increase_phases (target);
+  increase_phases (circuit);
 }
 
 void kissat_decrease_phases (kissat *solver, unsigned new_size) {
@@ -33,6 +34,8 @@ void kissat_decrease_phases (kissat *solver, unsigned new_size) {
   realloc_phases (best);
   realloc_phases (saved);
   realloc_phases (target);
+  if (GET_OPTION (circuit_guide))
+    realloc_phases (circuit);
 }
 
 #define release_phases(NAME, SIZE) \

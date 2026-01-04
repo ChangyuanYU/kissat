@@ -21,6 +21,9 @@ struct phases {
 #define TARGET(IDX) \
   (solver->phases.target[assert (VALID_INTERNAL_INDEX (IDX)), (IDX)])
 
+#define CIRCUIT(IDX) \
+  (solver->phases.circuit[assert (VALID_INTERNAL_INDEX (IDX)), (IDX)])
+
 struct kissat;
 
 void kissat_increase_phases (struct kissat *, unsigned);
@@ -29,5 +32,10 @@ void kissat_release_phases (struct kissat *);
 
 void kissat_save_best_phases (struct kissat *);
 void kissat_save_target_phases (struct kissat *);
+
+#define all_phases(NAME, PTR) \
+  value *PTR = solver->phases.NAME, *const end_##PTR = PTR + VARS; \
+  PTR != end_##PTR; \
+  ++PTR
 
 #endif

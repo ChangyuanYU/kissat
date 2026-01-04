@@ -55,21 +55,45 @@ static char rephase_best (kissat *solver) {
 }
 
 static char rephase_original (kissat *solver) {
-  const value initial_phase = INITIAL_PHASE;
-  value *s = solver->phases.saved;
-  const value *const end = s + VARS;
-  while (s != end)
-    *s++ = initial_phase;
+  if (GET_OPTION (circuit_guide)) {
+    const value *const circuit = solver->phases.circuit;
+    const value *const end_of_circuit = circuit + VARS;
+    value const *c;
+
+    value *const saved = solver->phases.saved;
+    value *s;
+
+    for (s = saved, c = circuit; c != end_of_circuit; s++, c++)
+      *s = *c;
+  } else {
+    const value initial_phase = INITIAL_PHASE;
+    value *s = solver->phases.saved;
+    const value *const end = s + VARS;
+    while (s != end)
+      *s++ = initial_phase;
+  }
   INC (rephased_original);
   return 'O';
 }
 
 static char rephase_inverted (kissat *solver) {
-  const value inverted_initial_phase = -INITIAL_PHASE;
-  value *s = solver->phases.saved;
-  const value *const end = s + VARS;
-  while (s != end)
-    *s++ = inverted_initial_phase;
+  if (GET_OPTION (circuit_guide)) {
+    const value *const circuit = solver->phases.circuit;
+    const value *const end_of_circuit = circuit + VARS;
+    value const *c;
+
+    value *const saved = solver->phases.saved;
+    value *s;
+
+    for (s = saved, c = circuit; c != end_of_circuit; s++, c++)
+      *s = -(*c);
+  } else {
+    const value inverted_initial_phase = -INITIAL_PHASE;
+    value *s = solver->phases.saved;
+    const value *const end = s + VARS;
+    while (s != end)
+      *s++ = inverted_initial_phase;
+  }
   INC (rephased_inverted);
   return 'I';
 }
