@@ -10,6 +10,7 @@
 #include "resize.h"
 #include "resources.h"
 #include "search.h"
+#include "internal.h"
 
 #include <assert.h>
 #include <inttypes.h>

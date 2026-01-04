@@ -9,6 +9,7 @@ struct phases {
   value *best;
   value *saved;
   value *target;
+  value *circuit;
 };
 
 #define BEST(IDX) \

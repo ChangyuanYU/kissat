@@ -43,6 +43,7 @@ void kissat_release_phases (kissat *solver) {
   release_phases (best, size);
   release_phases (saved, size);
   release_phases (target, size);
+  release_phases (circuit, size);
 }
 
 static void save_phases (kissat *solver, value *phases) {
